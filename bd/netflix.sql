@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: netflix
 -- ------------------------------------------------------
--- Server version	8.0.35
+-- Server version	8.0.34
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -73,6 +73,64 @@ INSERT INTO `movies` VALUES (1,'Pulp Fiction','Crimen','https://pics.filmaffinit
 UNLOCK TABLES;
 
 --
+-- Table structure for table `movies_has_actors`
+--
+
+DROP TABLE IF EXISTS `movies_has_actors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `movies_has_actors` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `movies_idMovies` int NOT NULL,
+  `actors_idActor` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_movies_has_actors_actors1_idx` (`actors_idActor`),
+  KEY `fk_movies_has_actors_movies1_idx` (`movies_idMovies`),
+  CONSTRAINT `fk_movies_has_actors_actors1` FOREIGN KEY (`actors_idActor`) REFERENCES `actors` (`idActor`),
+  CONSTRAINT `fk_movies_has_actors_movies1` FOREIGN KEY (`movies_idMovies`) REFERENCES `movies` (`idMovies`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `movies_has_actors`
+--
+
+LOCK TABLES `movies_has_actors` WRITE;
+/*!40000 ALTER TABLE `movies_has_actors` DISABLE KEYS */;
+INSERT INTO `movies_has_actors` VALUES (1,1,3),(2,2,2),(3,3,1);
+/*!40000 ALTER TABLE `movies_has_actors` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `movies_has_users`
+--
+
+DROP TABLE IF EXISTS `movies_has_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `movies_has_users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `movies_idMovies` int NOT NULL,
+  `users_idUser` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_movies_has_users_users1_idx` (`users_idUser`),
+  KEY `fk_movies_has_users_movies_idx` (`movies_idMovies`),
+  CONSTRAINT `fk_movies_has_users_movies` FOREIGN KEY (`movies_idMovies`) REFERENCES `movies` (`idMovies`),
+  CONSTRAINT `fk_movies_has_users_users1` FOREIGN KEY (`users_idUser`) REFERENCES `users` (`idUser`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `movies_has_users`
+--
+
+LOCK TABLES `movies_has_users` WRITE;
+/*!40000 ALTER TABLE `movies_has_users` DISABLE KEYS */;
+INSERT INTO `movies_has_users` VALUES (10,1,1),(11,2,1),(12,2,4);
+/*!40000 ALTER TABLE `movies_has_users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -87,7 +145,7 @@ CREATE TABLE `users` (
   `email` varchar(45) NOT NULL,
   `plan_details` varchar(45) NOT NULL,
   PRIMARY KEY (`idUser`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,7 +154,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'laura_dev','laura','Laura','laura@gmail.com','Standard'),(3,'ester_dev','ester','Ester','ester@gmail.com','Standard');
+INSERT INTO `users` VALUES (1,'laura_dev','laura','Laura','laura@gmail.com','Standard'),(3,'ester_dev','ester','Ester','ester@gmail.com','Standard'),(4,'dayana_dev','dayana','Dayana','dayana@gmail.com','Standard');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -109,4 +167,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-27 11:20:58
+-- Dump completed on 2023-10-30 10:54:20
