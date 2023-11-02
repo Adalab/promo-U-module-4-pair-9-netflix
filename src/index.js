@@ -33,6 +33,9 @@ server.get('/movies', async (req, res) => {
   const queryMovies = 'SELECT * FROM movies';
 
   const [results] = await conn.query(queryMovies);
-  res.json(results);
+  res.json({
+    success: true,
+    movies: results,
+  });
   conn.end();
 });
