@@ -18,7 +18,7 @@ async function getConnection() {
     host: 'localhost',
     user: 'root',
     database: 'netflix',
-    password: 'Ainhoamiamor1',
+    password: '12aran12',
   });
   connection.connect();
 
@@ -29,10 +29,12 @@ async function getConnection() {
 
 server.get('/movies', async (req, res) => {
   const conn = await getConnection();
-
+const params = req.query;
+console.log(params);
   const queryMovies = 'SELECT * FROM movies';
 
   const [results] = await conn.query(queryMovies);
+  
   res.json({
     success: true,
     movies: results,
