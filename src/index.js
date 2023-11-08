@@ -6,7 +6,7 @@ const mysql = require('mysql2/promise');
 const server = express();
 server.use(cors());
 server.use(express.json());
-
+server.set('view engine', 'ejs');
 // init express aplication
 const serverPort = 4000;
 server.listen(serverPort, () => {
@@ -18,7 +18,7 @@ async function getConnection() {
     host: 'localhost',
     user: 'root',
     database: 'netflix',
-    password: 'Ainhoamiamor1',
+    password: '12aran12',
   });
   connection.connect();
 
@@ -26,6 +26,17 @@ async function getConnection() {
 }
 
 // CAMBIA ESTE FETCH PARA QUE APUNTE A UN ENDPOINT DE TU SERVIDOR, PIENSA SI DEBE SER GET O POST, PIENSA QUÉ DATOS DEBES ENVIAR, ETC
+
+server.get('/movies/:idMovies', async (req, res) => {
+  const conn = await getConnection();
+  const idMovies = req.params.idMovies;
+  const foundMovie = `SELECT * FROM movies WHERE idMovies = ?`;
+  const [results] = await conn.query(foundMovie, [idMovies]);
+  console.log(results[0]);
+  res.render('movie', results[0]);
+
+  conn.end();
+});
 
 server.get('/movies', async (req, res) => {
   const conn = await getConnection();
@@ -48,15 +59,12 @@ server.get('/movies', async (req, res) => {
     success: true,
     movies: results,
   });
+
   conn.end();
 });
-server.get('/movies/:idMovies', (req, res) => {
-  // const idMovies = req.params.id;
 
-  // getMoviesFromId(idMovies, (error, user) => {
-  //   if (error) return res.status(500).send(error);
-  //   res.status(200).send(user);
+// Parte del fichero src/index.js
 
-  // });
-  console.log('idMovies:', req.params);
-});
+// Configuración del primer servidor de estáticos
+const staticServerPathWeb = './web';
+server.use(express.static(staticServerPathWeb));
