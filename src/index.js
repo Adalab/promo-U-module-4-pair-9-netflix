@@ -18,7 +18,7 @@ async function getConnection() {
     host: 'localhost',
     user: 'root',
     database: 'netflix',
-    password: '12aran12',
+    password: 'Ainhoamiamor1',
   });
   connection.connect();
 
@@ -63,8 +63,16 @@ server.get('/movies', async (req, res) => {
   conn.end();
 });
 
+server.post('/movies', async (req, res) => {
+  let queryMovies = '';
+});
+
 // Parte del fichero src/index.js
 
 // Configuración del primer servidor de estáticos
-const staticServerPathWeb = './web';
+
+const staticServerPathWeb = './web/dist/';
 server.use(express.static(staticServerPathWeb));
+
+const staticServerPathWebCss = './src/public';
+server.use(express.static(staticServerPathWebCss));
