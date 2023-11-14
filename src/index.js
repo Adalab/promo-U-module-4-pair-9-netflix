@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql2/promise');
+const dbConnect = require('../src/config/connection');
+dbConnect();
 
 // create and config server
 const server = express();
@@ -37,6 +39,7 @@ server.get('/movies/:idMovies', async (req, res) => {
 
   conn.end();
 });
+server.get('/movies_all_mongo', async (req, res) => {});
 
 server.get('/movies', async (req, res) => {
   const conn = await getConnection();
